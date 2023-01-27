@@ -1,13 +1,15 @@
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A estrutura graph representa um grafo. O campo adj é um ponteiro para a matriz de adjacências do grafo. O campo V contém o número de vértices e o campo A contém o número de arcos do grafo. */
+#define vertex int
+
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A estrutura graph representa um grafo. O campo adj ï¿½ um ponteiro para a matriz de adjacï¿½ncias do grafo. O campo V contï¿½m o nï¿½mero de vï¿½rtices e o campo A contï¿½m o nï¿½mero de arcos do grafo. */
 struct graph {
    int V; 
    int A; 
    int **adj; 
 };
-/* Um Graph é um ponteiro para um graph, ou seja, um Graph contém o endereço de um graph. */
+/* Um Graph ï¿½ um ponteiro para um graph, ou seja, um Graph contï¿½m o endereï¿½o de um graph. */
 typedef struct graph *Graph;
 
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A função GRAPHinit() constrói um grafo com vértices 0 1 .. V-1 e nenhum arco. */
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A funï¿½ï¿½o GRAPHinit() constrï¿½i um grafo com vï¿½rtices 0 1 .. V-1 e nenhum arco. */
 Graph GRAPHinit( int V) { 
    Graph G = malloc( sizeof *G);
    G->V = V; 
@@ -15,7 +17,7 @@ Graph GRAPHinit( int V) {
    G->adj = MATRIXint( V, V, 0);
    return G;
 }
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A função MATRIXint() aloca uma matriz com linhas 0..r-1 e colunas 0..c-1. Cada elemento da matriz recebe valor val. */
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A funï¿½ï¿½o MATRIXint() aloca uma matriz com linhas 0..r-1 e colunas 0..c-1. Cada elemento da matriz recebe valor val. */
 static int **MATRIXint( int r, int c, int val) { 
    int **m = malloc( r * sizeof (int *));
    for (vertex i = 0; i < r; ++i) 
@@ -25,21 +27,21 @@ static int **MATRIXint( int r, int c, int val) {
          m[i][j] = val;
    return m;
 }
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A função GRAPHinsertArc() insere um arco v-w no grafo G. A função supõe que v e w são distintos, positivos e menores que G->V. Se o grafo já tem um arco v-w, a função não faz nada. */
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A funï¿½ï¿½o GRAPHinsertArc() insere um arco v-w no grafo G. A funï¿½ï¿½o supï¿½e que v e w sï¿½o distintos, positivos e menores que G->V. Se o grafo jï¿½ tem um arco v-w, a funï¿½ï¿½o nï¿½o faz nada. */
 void GRAPHinsertArc( Graph G, vertex v, vertex w) { 
    if (G->adj[v][w] == 0) {
       G->adj[v][w] = 1; 
       G->A++;
    }
 }
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A função GRAPHremoveArc() remove do grafo G o arco v-w. A função supõe que v e w são distintos, positivos e menores que G->V. Se não existe arco v-w, a função não faz nada. */
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A funï¿½ï¿½o GRAPHremoveArc() remove do grafo G o arco v-w. A funï¿½ï¿½o supï¿½e que v e w sï¿½o distintos, positivos e menores que G->V. Se nï¿½o existe arco v-w, a funï¿½ï¿½o nï¿½o faz nada. */
 void GRAPHremoveArc( Graph G, vertex v, vertex w) { 
    if (G->adj[v][w] == 1) {
       G->adj[v][w] = 0; 
       G->A--;
    }
 }
-/* REPRESENTAÇÃO POR MATRIZ DE ADJACÊNCIAS: A função GRAPHshow() imprime, para cada vértice v do grafo G, em uma linha, todos os vértices adjacentes a v. */
+/* REPRESENTAï¿½ï¿½O POR MATRIZ DE ADJACï¿½NCIAS: A funï¿½ï¿½o GRAPHshow() imprime, para cada vï¿½rtice v do grafo G, em uma linha, todos os vï¿½rtices adjacentes a v. */
 void GRAPHshow( Graph G) { 
    for (vertex v = 0; v < G->V; ++v) {
       printf( "%2d:", v);
