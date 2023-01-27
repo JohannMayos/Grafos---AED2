@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define START 4
+#define START 10
 
 int V = START;
 
@@ -38,7 +38,7 @@ int ** insert_vertex(int **graph)
 {
     V++;
 
-    for (int i = 0; i < V; i++) 
+    for (int i = 0; i < V - 1; i++) 
     {
         graph[i] = realloc(graph[i], sizeof(int) * V);
     }
@@ -121,22 +121,7 @@ int get_exit_degree(int **graph, int vertex)
 int ** reset_graph(int **graph) 
 {
     V = START;
-
-    graph = malloc(sizeof(int*) * V);
-
-    for (int i = 0; i < V; i++) 
-    {
-        graph[i] = malloc(sizeof(int) * V);
-    }
-
-    for (int i = 0; i < V; i++) 
-    {
-        for (int j = 0; j < V; j++) 
-        {
-            graph[i][j] = 0;
-        }
-    }
-
+    graph = init_graph(graph);
     return graph;
 }
 
