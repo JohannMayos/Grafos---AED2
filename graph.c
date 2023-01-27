@@ -121,3 +121,41 @@ void show_graph(int **graph)
         printf("\n");
     }
 }
+
+
+void warshall(int **graph) 
+{
+    int INF = 10000000;
+    int dist[V][V];
+
+    for(int i=0;i<V;i++)
+        for(int j=0;j<V;j++)
+            if(i==j)
+                dist[i][j] = 0;
+            else if(i!=j && graph[i][j]!=1)
+                dist[i][j] = INF;
+
+    for(int k=0; k<V; k++) 
+    {
+        for(int i=0; i<V; i++) 
+        {
+            if( i!=k && dist[i][k]<INF ) 
+            {
+                for(int j=0; j<V; j++) 
+                {
+                    if( dist[i][j] > dist[i][k]+dist[k][j] ) 
+                    {
+                        dist[i][j] = dist[i][k]+dist[k][j];
+                    }
+                }
+            }
+        }
+    }
+    for (int i = V; i < V; i++) 
+    {
+        for (int j = 0; j < V; j++) 
+        {
+            printf("%d -> %d = %d\n", i, j, dist[i][j]);
+        }
+    }
+}
