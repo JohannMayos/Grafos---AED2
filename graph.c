@@ -4,8 +4,10 @@
 
 int V = START;
 
+int * visited;
 
-int ** init_graph(int **graph) 
+
+int ** init_graph(int **graph, int *visited) 
 {
     graph = malloc(sizeof(int*) * V);
 
@@ -21,6 +23,12 @@ int ** init_graph(int **graph)
             graph[i][j] = 0;
         }
     }
+    
+    visited = malloc(sizeof(int) * V);
+    for(int i = 0; i < V; i++)
+	{
+		visited[i] = 0;
+	}
 
     return graph;
 }
@@ -47,7 +55,13 @@ int ** insert_vertex(int **graph)
     {
         graph[V - 1][j] = 0;
     }
-
+	
+	visited = realloc (visited, sizeof(int) * V);
+	for(int i = V-1; i < V; i++)
+	{
+		visited[i] = 0;
+	}
+	
     return graph;
 }
 
@@ -61,6 +75,8 @@ int ** remove_vertex(int **graph)
 
     graph = realloc(graph, sizeof(int *) * (V - 1));
     V--;
+
+	visited = realloc (visited, sizeof(int) * V);
 
     return graph;
 }
@@ -102,7 +118,7 @@ int get_exit_degree(int **graph, int vertex)
 }
 
 
-int ** destroy_graph(int **graph) 
+int ** reset_graph(int **graph) 
 {
     V = START;
 
@@ -135,4 +151,18 @@ void show_graph(int **graph)
         }
         printf("\n");
     }
+}
+
+void DFS(int ** graph, int i)
+{
+    int j;
+	printf("\n%d",i);
+	
+    visited[i]=1;
+    
+	for(j=0;j<V;j++){
+       if(!visited[j]&&graph[i][j]==1){
+            DFS(graph, j);
+    	}
+	}
 }
